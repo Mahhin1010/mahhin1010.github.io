@@ -1,18 +1,7 @@
 
 ## 👋 Hello there, I'm Mahhin! 
 
-👨‍💻 I'm a Computer Science student with 1.5 years of experience as a Power BI Developer. My journey combines academic learning with practical experience across Python and Power BI, giving me a versatile toolkit for data analysis challenges.
-
-📊 Early in my career, I've been fortunate to gain opportunities to learn Python and data science fundamentals, building a strong analytical foundation. Over the past 9 months, I've focused on mastering Power BI, growing significantly from beginner to creating complex interactive dashboards.
-
-🔄 I'm a huge enthusiast of Generative AI and consistently keep myself updated on emerging technologies. This allows me to accomplish work that would typically require multiple people - from embedding dashboards in webpages, creating portfolio sites, developing Python APIs, to building end-to-end dashboard solutions.
-
-🌟 My technical versatility enables me to adapt quickly and learn as needed. Whether it's transforming data, creating visualizations, or implementing automated solutions, I approach each challenge with enthusiasm and a problem-solving mindset.
-
-🔍 Below are projects showcasing my diverse skills in data analytics. Let's connect and explore how we can transform data into impactful insights together!
-
-
-
+I've switched into Data Analytics two years ago, and love getting my hands dirty with all kinds of ETL jobs. For the past 10 months I've been using Power BI to create various dashboards for sales pipelines, budgeting, and forecasting. Prior to this, I've been involved in data science related projects using Python and machine learning. Knowing multiple tools allows me to perfectly decide which one to use for each unique data challenge.
 
 # Projects
 
