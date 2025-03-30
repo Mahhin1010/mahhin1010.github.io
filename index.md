@@ -17,13 +17,16 @@
 # Projects
 
 {% include project-stats.html %}
-## Sales Funnel Performance Dashboard – Power BI & Excel
+## L'AMÒUR Events & Suites: YoY Comparison Dashboard
 
 {% include dashboard-viewer.html %}
 
 - Connected directly to Excel through SharePoint to create **near real-time updating dashboard**, eliminating manual refresh processes
+
 - Implemented 30+ complex **DAX queries** and 15+ bookmark states behind 5 button clicks
+
 - Created interactive Data Visualization with **drill-through** capabilities, custom tooltips, and KPI metrics
+
 - Saved client team **8 hours of weekly manual reporting** work by upgrading their Excel dashboard into self-reporting Power BI dashboard
 
 
