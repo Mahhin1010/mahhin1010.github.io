@@ -1,0 +1,370 @@
+
+<html>
+<head>
+<title>Dashboard View</title>
+<style>
+  /* Dashboard Preview */
+  .dashboard-preview-container {
+    position: relative;
+    margin: 20px 0;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.2);
+    transition: transform 0.3s, box-shadow 0.3s;
+  }
+
+  .dashboard-preview-container:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.25);
+  }
+
+  .preview-image {
+    width: 100%;
+    display: block;
+    transition: transform 0.5s;
+  }
+
+  .preview-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.6);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    transition: opacity 0.4s;
+  }
+
+  .dashboard-preview-container:hover .preview-overlay {
+    opacity: 1;
+  }
+
+  .dashboard-preview-container:hover .preview-image {
+    transform: scale(1.03);
+  }
+
+  .view-btn {
+    background: linear-gradient(135deg, #4da6ff, #2c7be5);
+    color: white;
+    border: none;
+    border-radius: 6px;
+    padding: 14px 28px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  }
+
+  .view-btn:hover {
+    background: linear-gradient(135deg, #3a80c2, #1c5cba);
+    transform: scale(1.05);
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.3);
+  }
+
+  .btn-icon {
+    font-size: 18px;
+  }
+
+  /* Dashboard Controls */
+  .dashboard-controls {
+    display: flex;
+    justify-content: flex-end;
+    margin-bottom: 15px;
+  }
+
+  .control-btn {
+    background: linear-gradient(135deg, #4da6ff, #2c7be5);
+    color: white;
+    border: none;
+    border-radius: 6px;
+    padding: 10px 18px;
+    font-size: 14px;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+    transition: all 0.3s;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+  }
+
+  .control-btn:hover {
+    background: linear-gradient(135deg, #3a80c2, #1c5cba);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+  }
+
+  .expand-icon {
+    font-size: 18px;
+  }
+
+  /* Dashboard Container */
+  .dashboard-container {
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15);
+    margin-bottom: 20px;
+    position: relative;
+    background: #f8f9fa;
+    padding: 0;
+    width: 100%;
+  }
+
+  /* Responsive sizing for the embedded iframe */
+  .dashboard-container iframe {
+    width: 100%;
+    border: none;
+    background: #fff;
+    transition: height 0.3s;
+  }
+
+  /* Fullscreen Mode */
+  .fullscreen-dashboard {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.9);
+    z-index: 9999;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    /* Added transition for fade out */
+    transition: opacity 0.3s ease-out;
+  }
+
+  .fullscreen-dashboard iframe {
+    width: 2250px !important;
+    height: 1100px !important;
+    max-width: 95vw;
+    max-height: 90vh;
+    border: none;
+    box-shadow: 0 0 30px rgba(0, 0, 0, 0.5);
+    border-radius: 10px;
+  }
+
+  .close-fullscreen {
+    position: absolute;
+    top: 20px;
+    right: 30px; /* Moved further right as requested */
+    background: #4da6ff;
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 46px;
+    height: 46px;
+    font-size: 26px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    z-index: 10000;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    transition: all 0.3s;
+  }
+
+  .close-fullscreen:hover {
+    background: #3a80c2;
+    transform: scale(1.1);
+  }
+
+  /* Info Button and Disclaimer */
+  .info-btn {
+    background: linear-gradient(135deg, #4da6ff, #2c7be5);
+  }
+
+  .disclaimer-popup {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.7);
+    z-index: 9999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: opacity 0.3s;
+  }
+
+  .disclaimer-content {
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    max-width: 500px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.25);
+  }
+
+  .disclaimer-content h4 {
+    margin-top: 0;
+    color: #2c7be5;
+  }
+
+  .close-disclaimer {
+    background: linear-gradient(135deg, #4da6ff, #2c7be5);
+    color: white;
+    border: none;
+    border-radius: 6px;
+    padding: 8px 16px;
+    font-weight: 600;
+    cursor: pointer;
+    margin-top: 15px;
+    transition: all 0.3s;
+  }
+
+  .close-disclaimer:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+  }
+</style>
+</head>
+<body>
+
+<!-- Dashboard Preview Container -->
+<div id="dashboard-preview" class="dashboard-preview-container">
+  <img src="images/sales-funnel-preview.png" alt="Dashboard Preview" class="preview-image"> <!-- Make sure this path is correct -->
+  <div class="preview-overlay">
+    <button id="view-dashboard-btn" class="view-btn">
+      View Interactive Dashboard
+    </button>
+  </div>
+</div>
+
+<!-- Interactive Dashboard (Initially Hidden) -->
+<div id="dashboard-section" style="display: none;">
+  <div class="dashboard-controls">
+    <button id="expand-btn" class="control-btn">
+      <span class="expand-icon">⤢</span> View Full Screen
+    </button>
+    <button id="info-btn" class="control-btn info-btn" style="margin-left: 10px; width: 40px; height: 40px; padding: 0; border-radius: 50%; justify-content: center;">
+      <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+        <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"/>
+      </svg>
+    </button>
+  </div>
+
+  <div class="dashboard-container">
+    <iframe
+      id="dashboard-iframe"
+      title="l'amÒur Dashboard Year to Year"
+      width="100%"
+      height="600"
+      src="https://app.powerbi.com/view?r=eyJrIjoiNzU1NzYxZmMtZDQ2MC00MWZhLWIxODctNzUzZWEzZThiYzUwIiwidCI6ImJjNWRhZjM3LTc4MGMtNGMzNC1iYWEzLTE0ZWNkYmE1NWM4ZiJ9"
+      frameborder="0"
+      allowFullScreen="true">
+    </iframe>
+  </div>
+</div>
+
+<!-- Disclaimer Popup (Initially Hidden) -->
+<div id="disclaimer-popup" class="disclaimer-popup" style="display: none;">
+  <div class="disclaimer-content">
+    <h4>Important Note</h4>
+    <p>This dashboard is built using a public fictional company dataset, following all rights and resources in all possible ways. Please reach out to me in case of any complaint or concern.</p>
+    <button id="close-disclaimer" class="close-disclaimer">Got it</button>
+  </div>
+</div>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    // Elements
+    const previewSection = document.getElementById('dashboard-preview');
+    const dashboardSection = document.getElementById('dashboard-section');
+    const viewDashboardBtn = document.getElementById('view-dashboard-btn');
+    const expandBtn = document.getElementById('expand-btn');
+    const dashboardIframe = document.getElementById('dashboard-iframe');
+    const infoBtn = document.getElementById('info-btn');
+    const disclaimerPopup = document.getElementById('disclaimer-popup');
+    const closeDisclaimer = document.getElementById('close-disclaimer');
+
+    // Show dashboard when view button is clicked
+    viewDashboardBtn.addEventListener('click', function() {
+      previewSection.style.display = 'none';
+      dashboardSection.style.display = 'block';
+
+      // Scroll to dashboard section
+      dashboardSection.scrollIntoView({ behavior: 'smooth' });
+    });
+
+    // Expand dashboard to fullscreen
+    expandBtn.addEventListener('click', function() {
+      // Create fullscreen container
+      const fullscreenContainer = document.createElement('div');
+      fullscreenContainer.className = 'fullscreen-dashboard';
+
+      // Clone the iframe for fullscreen
+      const fullscreenIframe = dashboardIframe.cloneNode(true);
+
+      // Add close button
+      const closeBtn = document.createElement('button');
+      closeBtn.className = 'close-fullscreen';
+      closeBtn.innerHTML = '×';
+
+      // *** MODIFIED EVENT LISTENER FOR CLOSE BUTTON ***
+      closeBtn.addEventListener('click', function() {
+        // Add a fade-out effect
+        fullscreenContainer.style.opacity = '0';
+        setTimeout(function() {
+          // Remove the fullscreen container from the body
+          if (fullscreenContainer.parentNode === document.body) {
+             document.body.removeChild(fullscreenContainer);
+          }
+          // Restore body scrolling
+          document.body.style.overflow = 'auto';
+
+          // --- START OF CHANGE ---
+          // Hide the interactive dashboard section
+          dashboardSection.style.display = 'none';
+          // Show the initial preview section again
+          previewSection.style.display = 'block';
+          // --- END OF CHANGE ---
+
+        }, 300); // Match the transition duration in CSS
+      });
+      // *** END OF MODIFICATION ***
+
+      // Add elements to fullscreen container
+      fullscreenContainer.appendChild(closeBtn);
+      fullscreenContainer.appendChild(fullscreenIframe);
+
+      // Add to body and prevent scrolling
+      document.body.appendChild(fullscreenContainer);
+      document.body.style.overflow = 'hidden';
+
+      // Add a fade-in effect (start transparent, then become opaque)
+      fullscreenContainer.style.opacity = '0';
+      setTimeout(function() {
+        fullscreenContainer.style.opacity = '1';
+      }, 10); // Small delay to ensure transition applies
+    });
+
+    // Info button popup
+    infoBtn.addEventListener('click', function() {
+      disclaimerPopup.style.display = 'flex';
+      disclaimerPopup.style.opacity = '0';
+      setTimeout(function() {
+        disclaimerPopup.style.opacity = '1';
+      }, 10);
+    });
+
+    closeDisclaimer.addEventListener('click', function() {
+      disclaimerPopup.style.opacity = '0';
+      setTimeout(function() {
+        disclaimerPopup.style.display = 'none';
+      }, 300);
+    });
+  });
+</script>
+
+</body>
+</html>

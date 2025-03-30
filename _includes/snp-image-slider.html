@@ -1,0 +1,248 @@
+<!-- SNP 500 Image Slider Component - Final -->
+<style>
+    .snp-slider-container {
+      position: relative;
+      max-width: 700px; /* Adjust if needed, or use fixed width */
+      /* width: 594px; */ /* Uncomment if you prefer fixed width */
+      /* height: 464px; */ /* Uncomment if you prefer fixed height */
+      margin: 30px auto;
+      overflow: hidden;
+      border-radius: 12px;
+      box-shadow: 0 6px 18px rgba(0, 0, 0, 0.15);
+      background-color: #f8f9fa; /* Light background for container */
+    }
+  
+    .snp-slides {
+      position: relative;
+      width: 100%;
+      /* Use EITHER aspect-ratio OR fixed height from container */
+      aspect-ratio: 16 / 10; /* Default aspect ratio - Adjust if needed */
+      /* height: 100%; */  /* Use this instead if container has fixed height */
+      background-color: #e9ecef; /* Background for aspect ratio box */
+      overflow: hidden;
+      border-radius: 8px; /* Optional rounding for slide area */
+    }
+  
+    .snp-slide {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      display: none;
+      opacity: 0;
+      transition: opacity 0.7s ease-in-out;
+      text-align: center;
+      line-height: 0;
+    }
+  
+    .snp-slide.active {
+      display: flex; /* Use flex for centering */
+      align-items: center;
+      justify-content: center;
+      opacity: 1;
+    }
+  
+    .snp-slide img {
+      display: block;
+      max-width: 100%;
+      max-height: 100%;
+      width: auto;
+      height: auto;
+      object-fit: contain; /* Scale image down */
+      /* --- Image Rounded Corners --- */
+      border-radius: 8px;
+    }
+  
+    /* Prev/Next Buttons */
+    .snp-prev-btn,
+    .snp-next-btn {
+      cursor: pointer; position: absolute; top: 50%; transform: translateY(-50%);
+      width: auto; padding: 16px; color: white; font-weight: bold; font-size: 24px;
+      transition: background-color 0.4s ease; background-color: rgba(0, 0, 0, 0.35);
+      border: none; user-select: none; z-index: 10;
+    }
+    .snp-prev-btn { left: 0; border-radius: 0 6px 6px 0; }
+    .snp-next-btn { right: 0; border-radius: 6px 0 0 6px; }
+    .snp-prev-btn:hover, .snp-next-btn:hover { background-color: rgba(0, 0, 0, 0.65); }
+  
+  </style>
+  
+  <div class="snp-slider-container">
+  
+    <!-- Slides Wrapper -->
+    <div class="snp-slides">
+  
+      <!-- Slide 1 -->
+      <div class="snp-slide active">
+        <!-- **CORRECTED WEB PATH** -->
+        <img src="/images/Man_Stock_Round.png" alt="S&P 500 Analysis Overview">
+      </div>
+  
+      <!-- Slide 2 -->
+      <div class="snp-slide">
+        <!-- **CORRECTED WEB PATH** -->
+        <img src="/images/snp-image1.png" alt="S&P 500 Data Visualization">
+      </div>
+  
+      <!-- Slide 3 -->
+      <div class="snp-slide">
+        <!-- **CORRECTED WEB PATH** -->
+        <img src="/images/snp-image2.png" alt="S&P 500 Stock Performance Chart">
+      </div>
+  
+      <!-- Slide 4 -->
+      <div class="snp-slide">
+        <!-- **CORRECTED WEB PATH** -->
+        <img src="/images/snp-image3.png" alt="S&P 500 Technical Analysis">
+      </div>
+  
+      <!-- Slide 5 -->
+      <div class="snp-slide">
+        <!-- **CORRECTED WEB PATH** -->
+        <img src="/images/snp-image4.png" alt="S&P 500 EDA Results">
+      </div>
+  
+      <!-- Slide 6 -->
+      <div class="snp-slide">
+        <!-- **CORRECTED WEB PATH** -->
+        <img src="/images/snp-image5.png" alt="S&P 500 Key Metrics">
+      </div>
+  
+    </div> <!-- End .snp-slides -->
+  
+    <!-- Prev/Next Buttons -->
+    <button class="snp-prev-btn" onclick="snp_plusSlides(-1)">❮</button>
+    <button class="snp-next-btn" onclick="snp_plusSlides(1)">❯</button>
+  
+  </div> <!-- End .snp-slider-container -->
+  
+  <script>
+  // --- Final JavaScript with Auto-Advance on First Click & Pause on Hover ---
+  (function() { // Wrap in IIFE
+    let snp_slideIndex = 0;
+    let sliderContainer = null; // Initialize as null
+    let autoAdvanceTimer = null;
+    const autoAdvanceInterval = 3000; // 3 seconds
+    let clickListenerAdded = false; // Track if auto-advance has started
+  
+    // Function to show a specific slide
+    function snp_showSlide(n) {
+      // Find container if not already found
+      if (!sliderContainer) {
+        sliderContainer = document.querySelector('.snp-slider-container');
+        // If still not found after DOM load, something is wrong.
+        if (!sliderContainer) {
+          console.error("SNP Slider container '.snp-slider-container' not found!");
+          return;
+        }
+      }
+      let i;
+      const slides = sliderContainer.querySelectorAll('.snp-slide');
+      // If slides found, proceed. Otherwise, something might be wrong with HTML structure inside container.
+      if (slides.length === 0) {
+           console.warn("No slides found within '.snp-slider-container'");
+           return;
+      }
+  
+      // Handle index wrapping
+      if (n >= slides.length) { snp_slideIndex = 0; }
+      else if (n < 0) { snp_slideIndex = slides.length - 1; }
+      else { snp_slideIndex = n; }
+  
+      // Hide all slides
+      for (i = 0; i < slides.length; i++) {
+        slides[i].style.display = "none";
+        slides[i].classList.remove('active');
+        slides[i].style.opacity = 0;
+      }
+  
+      // Show the current slide
+      if (slides[snp_slideIndex]) {
+          slides[snp_slideIndex].style.display = "flex"; // Use flex for centering
+          void slides[snp_slideIndex].offsetWidth; // Force reflow for transition
+          setTimeout(() => { // Use timeout for better transition timing
+              if(slides[snp_slideIndex]) { // Check again in case things changed fast
+                 slides[snp_slideIndex].classList.add('active');
+                 slides[snp_slideIndex].style.opacity = 1;
+              }
+          }, 10);
+      } else {
+          console.error("Calculated slide index out of bounds:", snp_slideIndex, "Total slides:", slides.length);
+      }
+    }
+  
+    // Function to advance slide and RESET the auto-advance timer
+    function advanceAndResetTimer(n) {
+       snp_showSlide(snp_slideIndex + n);
+       // Only restart timer if it was already initiated by a click
+       if (clickListenerAdded) {
+         startAutoAdvance();
+       }
+    }
+  
+    // Make advanceAndResetTimer globally accessible for onclick
+    window.snp_plusSlides = advanceAndResetTimer;
+  
+    // Function to start the auto-advance timer
+    function startAutoAdvance() {
+      stopAutoAdvance(); // Clear any existing timer
+      if (!autoAdvanceTimer) { // Prevent multiple timers if logic error
+          autoAdvanceTimer = setInterval(function() {
+             // In setInterval, we call the basic showSlide logic directly to advance
+             snp_showSlide(snp_slideIndex + 1);
+          }, autoAdvanceInterval);
+      }
+    }
+  
+    // Function to stop the auto-advance timer
+    function stopAutoAdvance() {
+      clearInterval(autoAdvanceTimer);
+      autoAdvanceTimer = null;
+    }
+  
+    // Initialize slider and add event listeners
+    function initSlider() {
+        // Find container fresh on init
+        sliderContainer = document.querySelector('.snp-slider-container');
+  
+        if (sliderContainer && sliderContainer.querySelectorAll('.snp-slide').length > 0) {
+            snp_showSlide(snp_slideIndex); // Show initial slide
+  
+            // --- START AUTO-ADVANCE ON FIRST CLICK ---
+            const firstClickListener = function() {
+                if (!clickListenerAdded) {
+                    startAutoAdvance();
+                    clickListenerAdded = true;
+                    // Remove this specific listener after the first run
+                    sliderContainer.removeEventListener('click', firstClickListener);
+                    // Add hover listeners ONLY after auto-advance starts
+                    sliderContainer.addEventListener('mouseenter', stopAutoAdvance);
+                    sliderContainer.addEventListener('mouseleave', startAutoAdvance); // Resume on mouse out
+                }
+            };
+            sliderContainer.addEventListener('click', firstClickListener);
+  
+        } else {
+            // Wait a tiny bit and try again if elements weren't ready? (Less common issue)
+            setTimeout(() => {
+                sliderContainer = document.querySelector('.snp-slider-container');
+                if (!sliderContainer || sliderContainer.querySelectorAll('.snp-slide').length === 0) {
+                    console.warn("SNP Slider not ready or no slides found, even after short delay.");
+                } else if (!clickListenerAdded) { // Only init if not already done
+                   initSlider(); // Try init again
+                }
+            }, 200); // Wait 200ms
+        }
+    }
+  
+    // Handle DOMContentLoaded reliably
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', initSlider);
+    } else { // The DOM is already loaded
+      initSlider();
+    }
+  
+  })(); // End IIFE
+  </script>
+  <!-- End SNP 500 Image Slider Component -->

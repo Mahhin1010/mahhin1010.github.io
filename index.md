@@ -1,19 +1,33 @@
 
 ## 👋 Hello there, I'm Mahhin! 
 
-👨‍💻 I'm a 5th semester Computer Science student, eagerly looking to step into the professional world as a Junior Data Analyst. My journey so far has been a blend of academic learning and hands-on experience in data analysis.
+👨‍💻 I'm a Computer Science student with 1.5 years of experience as a Power BI Developer. My journey combines academic learning with practical experience across Python and Power BI, giving me a versatile toolkit for data analysis challenges.
 
-📊 My passion lies in transforming raw data into meaningful insights. I've had the opportunity to perform data analysis tasks as part of side jobs in my previous work. This hands-on experience has solidified my love for the field and sharpened my skills.
+📊 Early in my career, I've been fortunate to gain opportunities to learn Python and data science fundamentals, building a strong analytical foundation. Over the past 9 months, I've focused on mastering Power BI, growing significantly from beginner to creating complex interactive dashboards.
 
-🔄 While I'm capable of handling a variety of tasks, I excel in data transformations. Whether it's cleaning, transforming, or preparing data for further use, I find immense satisfaction in making data usable and insightful.
+🔄 I'm a huge enthusiast of Generative AI and consistently keep myself updated on emerging technologies. This allows me to accomplish work that would typically require multiple people - from embedding dashboards in webpages, creating portfolio sites, developing Python APIs, to building end-to-end dashboard solutions.
 
-🌟 I'm excited to connect with professionals and opportunities in the data analytics realm. Let's transform data together and make impactful decisions!
+🌟 My technical versatility enables me to adapt quickly and learn as needed. Whether it's transforming data, creating visualizations, or implementing automated solutions, I approach each challenge with enthusiasm and a problem-solving mindset.
+
+🔍 Below are projects showcasing my diverse skills in data analytics. Let's connect and explore how we can transform data into impactful insights together!
 
 
---- 
+
+
 # Projects
 
-## S&P 500 Comprehensive Recent Stocks Analysis 
+{% include project-stats.html %}
+## Sales Funnel Performance Dashboard – Power BI & Excel
+
+{% include dashboard-viewer.html %}
+
+- Connected directly to Excel through SharePoint to create **near real-time updating dashboard**, eliminating manual refresh processes
+- Implemented 30+ complex **DAX queries** and 15+ bookmark states behind 5 button clicks
+- Created interactive Data Visualization with **drill-through** capabilities, custom tooltips, and KPI metrics
+- Saved client team **8 hours of weekly manual reporting** work by upgrading their Excel dashboard into self-reporting Power BI dashboard
+
+
+## S&P 500 Comprehensive Recent Stocks Analysis
 <div style="display: inline;">
   <a href="projects/Stock Analysis.html" target="_blank">
     <img src="https://img.shields.io/badge/Jupyter-Open_Notebook-F37626?logo=Jupyter" alt="Open Notebook">
@@ -24,16 +38,11 @@
 </div>
 
 - Conducted in-depth analysis of top S&P 500 tech companies (**2019-2024**) using fundamental, quantitative, and technical approaches.
-
 - Performed extensive EDA on recent changes, computing metrics and values, and executed 7+ **time series** analyses (volatility, risk, *PE ratios*, moving averages and *many more*).
-
 - Developed a live, dynamic **candlestick dashboard** for stocks and ETFs, offering real-time insights and dynamic visualizations.
-
 - Open **Notebook** to Checkout the Analysis in depth
 
-<div style="text-align: center;">
-  <img src="images\Man_Stock_Round.png" style="margin: 0 auto;" />
-</div>
+{% include snp-image-slider.html %}  <--  THIS IS WHERE IT GOES
 
 ---
 ## Hate Speech Data Analysis with Python 
