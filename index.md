@@ -30,8 +30,11 @@ I've switched into Data Analytics two years ago, and love getting my hands dirty
 </div>
 
 - Conducted in-depth analysis of top S&P 500 tech companies (**2019-2024**) using fundamental, quantitative, and technical approaches.
+
 - Performed extensive EDA on recent changes, computing metrics and values, and executed 7+ **time series** analyses (volatility, risk, *PE ratios*, moving averages and *many more*).
+
 - Developed a live, dynamic **candlestick dashboard** for stocks and ETFs, offering real-time insights and dynamic visualizations.
+
 - Open **Notebook** to Checkout the Analysis in depth
 
 {% include snp-image-slider.html %}  <--  THIS IS WHERE IT GOES
