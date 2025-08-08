@@ -8,7 +8,7 @@ I've switched into Data Analytics two years ago, and love getting my hands dirty
 {% include project-stats.html %}
 ## L'AMÒUR Events & Suites: YoY Comparison Dashboard
 
-{% include dashboard-viewer.html %}
+{% include dashboard-preview.html %}
 
 - Connected directly to Excel through SharePoint to create **near real-time updating dashboard**, eliminating manual refresh processes
 

@@ -1,0 +1,73 @@
+<div id="dashboard-preview" class="dashboard-preview-container">
+  <img src="/images/sales-funnel-preview.png" alt="Dashboard Preview" class="preview-image">
+  <div class="preview-overlay">
+    <a href="/projects/lamour-dashboard.html" class="view-btn">
+      View Interactive Dashboard
+    </a>
+  </div>
+</div>
+
+<style>
+  /* --- Dashboard Preview Styles --- */
+  .dashboard-preview-container {
+    position: relative;
+    margin: 20px 0;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.2);
+    transition: transform 0.3s, box-shadow 0.3s;
+  }
+
+  .dashboard-preview-container:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.25);
+  }
+
+  .preview-image {
+    width: 100%;
+    display: block;
+    transition: transform 0.5s;
+  }
+  
+  .dashboard-preview-container:hover .preview-image {
+    transform: scale(1.03);
+  }
+
+  .preview-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.6);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    transition: opacity 0.4s;
+  }
+
+  .dashboard-preview-container:hover .preview-overlay {
+    opacity: 1;
+  }
+
+  .view-btn {
+    background: linear-gradient(135deg, #4da6ff, #2c7be5);
+    color: white;
+    text-decoration: none; /* remove underline from link */
+    border: none;
+    border-radius: 6px;
+    padding: 14px 28px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  }
+
+  .view-btn:hover {
+    background: linear-gradient(135deg, #3a80c2, #1c5cba);
+    transform: scale(1.05);
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.3);
+  }
+</style>
