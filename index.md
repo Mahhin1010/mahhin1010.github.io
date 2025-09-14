@@ -6,6 +6,20 @@ I've switched into Data Analytics two years ago, and love getting my hands dirty
 # Projects
 
 {% include project-stats.html %}
+
+
+## L'AMÒUR CFO View Dashboard
+
+{% include cfo-dashboard-preview.html %}
+
+- Utilized **24+ ratios** for a comprehensive financial overview, focusing on risk, efficiency, capitalization, and liquidity.
+
+- Developed a beautiful, tailored dashboard providing a specific, high-level view for a Chief Financial Officer.
+
+- Integrated the ability to see **benchmarking figures** against specific industry standards for competitive analysis.
+
+---
+
 ## L'AMÒUR Events & Suites: YoY Comparison Dashboard
 
 {% include dashboard-preview.html %}

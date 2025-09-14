@@ -1,12 +1,13 @@
 <html>
 <head>
-<title>L'AMÒUR Events & Suites Dashboard</title>
+<title>Lamore CFO Cockpit Dashboard</title>
 <style>
   /* Basic styles for the dashboard page */
   body { 
-    font-family: sans-serif; 
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
     margin: 20px; 
     background-color: #f4f4f9; 
+    color: #333;
   }
   
   h1 {
@@ -14,7 +15,7 @@
     color: #333;
   }
 
-  /* Dashboard Controls */
+  /* --- Styles for the Control Buttons --- */
   .dashboard-controls {
     display: flex;
     justify-content: flex-end;
@@ -36,28 +37,27 @@
     font-size: 14px;
     font-weight: 600;
     cursor: pointer;
-    transition: all 0.3s;
+    transition: all 0.3s ease; /* Added ease for smoother animation */
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
-    display: inline-flex; /* For alignment */
+    display: inline-flex; 
     align-items: center;
   }
 
   .control-btn:hover {
     background: linear-gradient(135deg, #3a80c2, #1c5cba);
-    transform: translateY(-2px);
+    transform: translateY(-2px); /* This creates the "lift" effect */
     box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
   }
   
-  /* Info button specific style */
   .info-btn {
     width: 40px; 
     height: 40px; 
     padding: 0; 
-    border-radius: 50%; 
+    border-radius: 50%; /* Make it a circle */
     justify-content: center;
   }
 
-  /* Dashboard Container */
+  /* --- Styles for the Dashboard Container --- */
   .dashboard-container {
     border-radius: 10px;
     overflow: hidden;
@@ -73,14 +73,14 @@
 
   .dashboard-container iframe {
     width: 100%;
-    height: 80vh;
+    height: 80vh; /* Make the dashboard tall */
     border: none;
   }
   
-  /* --- NEW: Disclaimer Marquee Popup --- */
+  /* --- NEW: Scrolling Disclaimer Popup Styles --- */
   .disclaimer-marquee-popup {
     position: fixed;
-    bottom: -100px; /* Start off-screen */
+    bottom: -100px; /* Start hidden below the screen */
     left: 50%;
     transform: translateX(-50%);
     width: 90%;
@@ -88,39 +88,41 @@
     background: linear-gradient(135deg, #333, #555);
     color: white;
     border-radius: 10px;
-    padding: 15px 25px;
+    padding: 15px 20px;
     box-shadow: 0 10px 30px rgba(0,0,0,0.3);
     z-index: 10000;
     opacity: 0;
-    transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275); /* Smooth, bouncy transition */
+    /* This transition creates the smooth, bouncy slide-in effect */
+    transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275); 
     display: flex;
     align-items: center;
     justify-content: space-between;
   }
   
   .disclaimer-marquee-popup.show {
-      bottom: 20px; /* Slide in */
+      bottom: 20px; /* Slide into view */
       opacity: 1;
   }
 
   .marquee-container {
     flex-grow: 1;
     overflow: hidden; /* This hides the overflowing text */
-    white-space: nowrap; /* Prevents text from wrapping */
+    white-space: nowrap; /* Prevents the text from wrapping to a new line */
   }
 
   .marquee-text {
     display: inline-block;
     padding-left: 100%; /* Start the text off-screen to the right */
-    animation: scroll-left 25s linear infinite; /* Animation definition */
+    animation: scroll-left 25s linear infinite; /* Defines the scrolling animation */
   }
   
+  /* The scrolling animation */
   @keyframes scroll-left {
     0% {
       transform: translateX(0%);
     }
     100% {
-      transform: translateX(-200%); /* Adjust based on text length if needed */
+      transform: translateX(-200%); /* Adjust this value if your text is very long or short */
     }
   }
 
@@ -140,14 +142,15 @@
   .close-disclaimer:hover {
       background: white;
       color: #333;
+      transform: rotate(90deg); /* Adds a nice spin effect on hover */
   }
 </style>
 </head>
 <body>
 
-<h1>L'AMÒUR Events & Suites: YoY Comparison Dashboard</h1>
+<h1>Lamore CFO Cockpit Dashboard</h1>
 
-<!-- This div now holds BOTH buttons -->
+<!-- The div for the control buttons -->
 <div class="dashboard-controls">
     <a href="/" class="control-btn">Back to Portfolio</a>
     <button id="info-btn" class="control-btn info-btn">
@@ -157,17 +160,17 @@
     </button>
 </div>
 
+<!-- The container for your dashboard iframe -->
 <div class="dashboard-container">
     <iframe 
-      id="dashboard-iframe"
-      title="l'amÒur Dashboard Year to Year (1)"
-      src="https://app.powerbi.com/view?r=eyJrIjoiYjgwZDgzOWUtOTFmYS00OWUzLWE5ZDctMGM2YjQyZWRhOGFiIiwidCI6ImJjNWRhZjM3LTc4MGMtNGMzNC1iYWEzLTE0ZWNkYmE1NWM4ZiJ9"
-      frameborder="0"
+      title="l'amÒur CFO-Dashboard" 
+      src="https://app.powerbi.com/view?r=eyJrIjoiYjNmZmNjZjQtMzRhOC00Mzk4LWIyMDItMjUyZmJkZGUyY2IwIiwidCI6ImJjNWRhZjM3LTc4MGMtNGMzNC1iYWEzLTE0ZWNkYmE1NWM4ZiJ9" 
+      frameborder="0" 
       allowFullScreen="true">
     </iframe>
 </div>
 
-<!-- NEW Disclaimer Marquee Popup -->
+<!-- The HTML for the hidden scrolling disclaimer popup -->
 <div id="disclaimer-popup" class="disclaimer-marquee-popup">
     <div class="marquee-container">
         <p class="marquee-text">
@@ -178,15 +181,18 @@
 </div>
 
 <script>
+  // This script handles the info button click
   document.addEventListener('DOMContentLoaded', function() {
     const infoBtn = document.getElementById('info-btn');
     const disclaimerPopup = document.getElementById('disclaimer-popup');
     const closeDisclaimerBtn = document.getElementById('close-disclaimer');
 
+    // When the info button is clicked, show the popup
     infoBtn.addEventListener('click', function() {
       disclaimerPopup.classList.add('show');
     });
 
+    // When the close button is clicked, hide the popup
     closeDisclaimerBtn.addEventListener('click', function() {
       disclaimerPopup.classList.remove('show');
     });
