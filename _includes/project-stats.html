@@ -56,13 +56,36 @@
       flex-shrink: 0; /* Keep this to prevent icon shrinking */
     }
     /* --- End Project Stats Bar CSS --- */
-    .stat-plus {
-  font-size: 0.55em;
-  vertical-align: super;
-  color: #3b82f6; /* Optional: makes the plus red, can be changed or removed */
-  margin-left: 1px;
-}
-  </style>
+  .stat-plus {
+    font-size: 0.55em;
+    vertical-align: super;
+    color: #3b82f6;
+    margin-left: 1px;
+  }
+  
+  /* Mobile optimizations */
+  @media (max-width: 600px) {
+    .project-stats {
+      margin: 20px 0;
+      padding: 10px 0;
+    }
+    .stat-item {
+      width: 44%; /* slightly narrower to definitely fit */
+      margin: 5px;
+      padding: 10px;
+    }
+    .stat-count {
+      font-size: 32px;
+    }
+    .stat-icon {
+      width: 32px;
+      height: 32px;
+    }
+    .stat-label {
+      font-size: 14px;
+    }
+  }
+</style>
   
   <!-- Project Statistics Bar -->
   <div class="project-stats">

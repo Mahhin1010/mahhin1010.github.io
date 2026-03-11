@@ -1,0 +1,232 @@
+<style>
+.custom-carousel-wrap {
+  position: relative;
+  width: 100%;
+  max-width: 900px;
+  margin: 20px auto;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+  background: #f8f9fa;
+  border: 1px solid #e0e0e0;
+}
+.custom-carousel-wrap.fullscreen {
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  max-width: none;
+  margin: 0;
+  border-radius: 0;
+  z-index: 9999;
+  background: #111;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+}
+.custom-carousel-track {
+  display: flex;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scroll-behavior: smooth;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none; /* Firefox */
+}
+.custom-carousel-track::-webkit-scrollbar {
+  display: none; /* Safari and Chrome */
+}
+.custom-carousel-slide {
+  flex: 0 0 100%;
+  width: 100%;
+  scroll-snap-align: start;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #fff;
+}
+.custom-carousel-wrap.fullscreen .custom-carousel-slide {
+  background: transparent;
+}
+.custom-carousel-slide img {
+  width: 100%;
+  height: auto;
+  max-height: 70vh;
+  object-fit: contain;
+  display: block;
+}
+.custom-carousel-wrap.fullscreen .custom-carousel-slide img {
+  max-height: 100vh;
+}
+.carousel-nav-btn {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: rgba(255, 255, 255, 0.9);
+  color: #333;
+  border: none;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 22px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+  transition: all 0.2s ease;
+  z-index: 10;
+}
+.carousel-nav-btn:hover {
+  background: white;
+  transform: translateY(-50%) scale(1.08);
+  box-shadow: 0 6px 16px rgba(0,0,0,0.2);
+}
+.carousel-nav-btn.prev { left: 15px; }
+.carousel-nav-btn.next { right: 15px; }
+
+.carousel-fullscreen-btn {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  background: rgba(0, 0, 0, 0.6);
+  color: white;
+  border: none;
+  padding: 10px;
+  border-radius: 8px;
+  cursor: pointer;
+  z-index: 10;
+  backdrop-filter: blur(4px);
+  transition: background 0.2s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.carousel-fullscreen-btn:hover {
+  background: rgba(0, 0, 0, 0.9);
+}
+.carousel-indicators {
+  position: absolute;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 8px;
+  z-index: 10;
+  background: rgba(0,0,0,0.4);
+  padding: 6px 12px;
+  border-radius: 20px;
+  backdrop-filter: blur(4px);
+  max-width: 90%;
+  overflow-x: auto;
+}
+.carousel-indicators::-webkit-scrollbar {
+  display: none;
+}
+.carousel-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.4);
+  cursor: pointer;
+  transition: all 0.2s;
+  flex-shrink: 0;
+}
+.carousel-dot.active {
+  background: white;
+  transform: scale(1.3);
+}
+
+/* Mobile optimizations */
+@media (max-width: 768px) {
+  .custom-carousel-wrap {
+    margin: 15px 0;
+    border-radius: 8px;
+  }
+  .carousel-nav-btn {
+    width: 34px;
+    height: 34px;
+    font-size: 16px;
+  }
+  .carousel-nav-btn.prev { left: 5px; }
+  .carousel-nav-btn.next { right: 5px; }
+  .carousel-indicators {
+    bottom: 8px;
+    padding: 4px 8px;
+  }
+  .carousel-dot {
+    width: 6px;
+    height: 6px;
+  }
+}
+</style>
+
+{% assign id_prefix = include.folder | slugify %}
+{% assign count = include.count | plus: 0 %}
+
+<div class="custom-carousel-wrap" id="carousel-{{ id_prefix }}">
+  <button class="carousel-fullscreen-btn" onclick="toggleFullscreen('{{ id_prefix }}')" title="Toggle Fullscreen">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3"></path></svg>
+  </button>
+  <button class="carousel-nav-btn prev" onclick="moveSlide('{{ id_prefix }}', -1)">&#10094;</button>
+  <button class="carousel-nav-btn next" onclick="moveSlide('{{ id_prefix }}', 1)">&#10095;</button>
+  
+  <div class="custom-carousel-track" id="track-{{ id_prefix }}" onscroll="updateDots('{{ id_prefix }}')">
+    {% for i in (1..count) %}
+      <div class="custom-carousel-slide">
+        <img src="{{ include.folder }}/{{ i }}.jpg" alt="Case Study Slide {{ i }}" loading="lazy">
+      </div>
+    {% endfor %}
+  </div>
+
+  <div class="carousel-indicators" id="dots-{{ id_prefix }}">
+    {% for i in (1..count) %}
+      <div class="carousel-dot {% if forloop.first %}active{% endif %}" onclick="goToSlide('{{ id_prefix }}', {{ forloop.index0 }})"></div>
+    {% endfor %}
+  </div>
+</div>
+
+<script>
+function getTrack(id) {
+  return document.getElementById('track-' + id);
+}
+function moveSlide(id, direction) {
+  const track = getTrack(id);
+  const slideWidth = track.clientWidth;
+  track.scrollBy({ left: direction * slideWidth, behavior: 'smooth' });
+}
+function goToSlide(id, index) {
+  const track = getTrack(id);
+  const slideWidth = track.clientWidth;
+  track.scrollTo({ left: index * slideWidth, behavior: 'smooth' });
+}
+function updateDots(id) {
+  const track = getTrack(id);
+  const slideWidth = track.clientWidth;
+  const index = Math.round(track.scrollLeft / slideWidth);
+  const dots = document.getElementById('dots-' + id).children;
+  for(let i=0; i<dots.length; i++) {
+    dots[i].classList.toggle('active', i === index);
+  }
+}
+function toggleFullscreen(id) {
+  const wrap = document.getElementById('carousel-' + id);
+  wrap.classList.toggle('fullscreen');
+  const btn = wrap.querySelector('.carousel-fullscreen-btn');
+  if(wrap.classList.contains('fullscreen')) {
+    document.body.style.overflow = 'hidden'; // prevent outside scrolling
+    btn.innerHTML = '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 3v3a2 2 0 0 1-2 2H3m18 0h-3a2 2 0 0 1-2-2V3m0 18v-3a2 2 0 0 1 2-2h3M3 16h3a2 2 0 0 1 2 2v3"></path></svg>';
+  } else {
+    document.body.style.overflow = '';
+    btn.innerHTML = '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3"></path></svg>';
+    
+    // Slight scroll jump fix when closing fullscreen
+    const track = getTrack(id);
+    const dots = document.getElementById('dots-' + id).children;
+    let activeIndex = 0;
+    for(let i=0; i<dots.length; i++) if(dots[i].classList.contains('active')) activeIndex = i;
+    
+    setTimeout(() => {
+        track.scrollTo({ left: activeIndex * track.clientWidth, behavior: 'auto' });
+    }, 10);
+  }
+}
+</script>

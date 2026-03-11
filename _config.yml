@@ -1,6 +1,6 @@
 title: "Mahhin Shahzad"
 
-logo: "/images/Profileimg.jpg?raw=true"
+logo: "/images/Mahhin_Profile_New.png"
 
 description: >
   <p align="center">
@@ -10,9 +10,7 @@ description: >
   </p>
   
   <p align="justify">
-  I am one year away from completing my Bachelor's degree in Computer Science from FUUAST Islamabad.
-  Currently working as a BI Developer at Proforecast, where I'm leading the BI suite to the next level.
+  BI Lead · Analytics Engineer specialising in financial data infrastructure and BI.
   </p>
-
 theme: jekyll-theme-minimal
 google_analytics: G-ETBVX0Z22J
