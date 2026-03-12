@@ -110,7 +110,7 @@
 - Architected an end-to-end Python and SQL ETL pipeline to bypass a legacy ERP system (Sage 50), transforming locked financial data into a scalable Bronze-Silver-Gold database architecture.
 - Engineered an advanced Power BI Composite Model combining historical Data Imports with live DirectQuery, enabling real-time budget scenario planning.
 - Implemented dynamic, multi-tenant Row-Level Security (RLS) across 12 global subsidiaries to ensure strict data governance and regional isolation.
-- Eliminated 60+ hours of manual monthly data consolidation and slashed decision latency by 95%, successfully securing a £120k+ enterprise contract renewal.
+- Eliminated 60+ hours of manual monthly reporting and reduced decision latency by 95%, directly contributing to the retention of an at-risk enterprise subscription and contract renewal.
 
 ---
 
