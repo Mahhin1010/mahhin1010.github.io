@@ -105,7 +105,26 @@
 ## L'AMOUR Enterprise Data Architecture & BI Pipeline
 <div class="project-date">📅 February 2025</div>
 
+{% capture video_html %}
+<div style="position: relative; width: 100%; height: 0; padding-top: 62.5000%;
+ padding-bottom: 0; box-shadow: 0 2px 8px 0 rgba(63,69,81,0.16); margin-top: 1.6em; margin-bottom: 0.9em; overflow: hidden;
+ border-radius: 8px; will-change: transform;">
+  <iframe loading="lazy" style="position: absolute; width: 100%; height: 100%; top: 0; left: 0; border: none; padding: 0;margin: 0;"
+    src="https://www.canva.com/design/DAHEJN4_fH0/hkhB_al8YMPMguI6KKsH3g/watch?embed" allowfullscreen="allowfullscreen" allow="fullscreen">
+  </iframe>
+</div>
+<a href="https://www.canva.com/design/DAHEJN4_fH0/hkhB_al8YMPMguI6KKsH3g/watch?utm_content=DAHEJN4_fH0&amp;utm_campaign=designshare&amp;utm_medium=embeds&amp;utm_source=link" target="_blank" rel="noopener" style="font-size: 0.9em; color: #555;">Project Explanation Video</a> <span style="font-size: 0.9em; color: #888;">by MAHHIN GAMING GATE</span>
+{% endcapture %}
+
+{% capture case_study_html %}
 {% include native-carousel.html folder="images/lamour-data-architecture" count=16 %}
+{% endcapture %}
+
+{% include video-case-study-tabs.html 
+    id="lamour-data-architecture" 
+    video_html=video_html 
+    case_study_html=case_study_html 
+%}
 
 - Architected an end-to-end Python and SQL ETL pipeline to bypass a legacy ERP system (Sage 50), transforming locked financial data into a scalable Bronze-Silver-Gold database architecture.
 - Engineered an advanced Power BI Composite Model combining historical Data Imports with live DirectQuery, enabling real-time budget scenario planning.
