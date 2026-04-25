@@ -251,6 +251,10 @@ const projects = [
       "https://medium.com/@mahhinshahzad/data-analytics-job-survey-analysis-with-power-bi-dc7fbd7cf1a4",
     github:
       "https://github.com/Mahhin1010/Data-Analytics-Job-Survey-Analysis",
+    dashboard: {
+      src: "https://app.powerbi.com/view?r=eyJrIjoiMDAwMjk0NjItZDYwYy00YjU0LTlmMmEtNzdjYWM2YWZmODhiIiwidCI6IjY1ZTM4Y2Y0LTc5MDUtNDYwYy05YzIwLTYwNDU4MGY2Zjc2NSIsImMiOjl9",
+      title: "Power BI fin actual",
+    },
   },
 
   // ────────────────────────────────────────────────
